@@ -44,13 +44,20 @@ public class ProductController {
 	public String addProduct(@ModelAttribute("ProdVO") Product product) throws Exception{
 		
 		System.out.println("/addProduct.do");
+		
+		String md = product.getManuDate(); 
+		String[] manu = md.split("-");
+		String manudate = manu[0]+manu[1]+manu[2];
+		product.setManuDate(manudate);
+		
 		productService.addProduct(product);
+		
 		
 		return "forward:/product/readProductView.jsp";
 	}
 	
 	@RequestMapping("/getProduct.do")
-	public String getProduct(@ModelAttribute("prodNo") int prodNo, HttpServletRequest request, Cookie cookie, Model model) throws Exception{
+	public String getProduct(@RequestParam int prodNo, HttpServletRequest request, Model model) throws Exception{
 		
 		System.out.println("/getProduct.do");
 		Product prod = productService.getProduct(prodNo);
@@ -60,14 +67,14 @@ public class ProductController {
 		Cookie[] cookies = request.getCookies();
 		if(cookies != null && cookies.length > 0) {
 			for(int i=0; i<cookies.length; i++) {
-				cookie = cookies[i];
+				Cookie cookie = cookies[i];
 				if(cookie.getName().equals("history")) {
 					history = URLDecoder.decode(","+cookie.getValue());
 				}
 			}
 		}
 		
-		cookie = new Cookie("history", URLEncoder.encode(prodNo+history));
+		Cookie cookie = new Cookie("history", URLEncoder.encode(prodNo+history));
 		
 		return "forward:/product/updateProductView.jsp";
 	}
@@ -82,7 +89,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/updateProductView.do")
-	public String updateProductView(@ModelAttribute("no") int prodNo, Model model) throws Exception{
+	public String updateProductView(@RequestParam int prodNo, Model model) throws Exception{
 		
 		System.out.println("/updateProductView.do");
 		Product prod = productService.getProduct(prodNo);

@@ -23,7 +23,18 @@
   p.prod_no, p.prod_name, p.prod_detail, 
   p.manufacture_day, p.price, p.image_file, p.reg_date
   FROM product p, transaction t 
-  WHERE p.prod_no = t.prod_no(+)
+  <if test="searchCondition != null">
+  	<where>
+  		<if test="searchCondition == 1 and searchKeyword != '' ">
+  			p.prod_no = t.prod_no(+) AND prod_name = #{searchKeyword}
+  		</if>
+  	</where>
+  </if>
+  <if test="searchCondition == null">
+  	<where>
+  			p.prod_no = t.prod_no(+)
+  	</where>
+  </if>
   ORDER BY p.prod_no
 </sql>
 
