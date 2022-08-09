@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 <script type="text/javascript">
-	function fncGetList(currentPage) {
+	function fncGetUserList(currentPage) {
 		document.getElementById("currentPage").value = currentPage;
 		document.detailForm.submit();
 	}
@@ -75,7 +75,7 @@
 		Purchase vo = (Purchase)list.get(i);
 	%>
 	--%>
-	<c:forEach var="vo" items="${list }">
+	<c:forEach var="vo" items="${list}">
 	
 	<tr class="ct_list_pop">
 		<td align="center">

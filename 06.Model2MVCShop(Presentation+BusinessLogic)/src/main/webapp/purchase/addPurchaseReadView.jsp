@@ -34,12 +34,12 @@ Purchase vo = (Purchase)request.getAttribute("addVO");
 	</tr>
 	<tr>
 		<td>구매자이름</td>
-		<td>${ addVO.buyer.userName }</td>
+		<td>${ addVO.receiverName }</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>구매자연락처</td>
-		<td>${ addVO.buyer.phone }</td>
+		<td>${ addVO.receiverPhone }</td>
 		<td></td>
 	</tr>
 	<tr>

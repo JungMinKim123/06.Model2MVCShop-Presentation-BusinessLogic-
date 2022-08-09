@@ -32,9 +32,9 @@
 <insert id="insertPurchase" parameterType="purchase">
   INSERT
   INTO transaction 
-  VALUES (seq_transaction_tran_no.NEXTVAL, #{purchaseProd.prodNo}, #{buyer.userId},
-  		  #{paymentOption}, #{receiverName}, #{receiverPhone}, #{divyAddr},
-  		  #{divyRequest}, #{tranCode}, SYSDATE, #{divyDate})
+  VALUES (seq_transaction_tran_no.NEXTVAL, #{purchaseProd.prodNo:NUMERIC}, #{buyer.userId:VARCHAR},
+  		  #{paymentOption:CHAR}, #{receiverName:VARCHAR}, #{receiverPhone:VARCHAR}, #{divyAddr:VARCHAR},
+  		  #{divyRequest:VARCHAR}, #{tranCode:VARCHAR}, SYSDATE, #{divyDate:DATE})
 </insert>
 
 <select id="findPurchase" parameterType="purchase" resultMap="purchaseSelectMap">
@@ -49,12 +49,12 @@
 <update id="updatePurchase" parameterType="purchase">
   UPDATE transaction
   <set>
-    payment_option = #{paymentOption},
-    receiver_name = #{receiverName},
-    receiver_phone = #{receiverPhone},
-    demailaddr = #{divyAddr},
-    dlvy_request = #{divyRequest},
-    dlvy_date = #{divyDate}
+    payment_option = #{paymentOption:CHAR},
+    receiver_name = #{receiverName:VARCHAR},
+    receiver_phone = #{receiverPhone:VARCHAR},
+    demailaddr = #{divyAddr:VARCHAR},
+    dlvy_request = #{divyRequest:VARCHAR},
+    dlvy_date = #{divyDate:DATE}
   </set>
     WHERE tran_no= #{tranNo}
 </update>
@@ -64,7 +64,7 @@
   <set>
     tran_status_code = #{tranCode},
   </set>
-    WHERE tran_no= #{tranNo}
+    WHERE prod_no= #{purchaseProd.prodNo:NUMERIC}
 </update>
 
 <select id="getPurchaseList" parameterType="search" resultMap="purchaseSelectMap">

@@ -1,9 +1,12 @@
 <%@page import="com.model2.mvc.service.domain.Purchase"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR" %>
-
-<%
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%-- 
+<%//
 Purchase vo = (Purchase)request.getAttribute("updateVO");
 %>
+--%>
 
 <html>
 <head>
@@ -47,7 +50,7 @@ Purchase vo = (Purchase)request.getAttribute("updateVO");
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td width="105">
-					<%= vo.getPurchaseProd().getProdNo() %></td>
+					${ updateVO.purchaseProd.prodNo }</td>
 					<td></td>
 				</tr>
 			</table>
@@ -61,7 +64,7 @@ Purchase vo = (Purchase)request.getAttribute("updateVO");
 			구매자아이디 <img	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%= vo.getBuyer().getUserId() %></td>
+		<td class="ct_write01">${ updateVO.buyer.userId }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -71,7 +74,12 @@ Purchase vo = (Purchase)request.getAttribute("updateVO");
 		<td width="104" class="ct_write">구매방법</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<%= vo.getPaymentOption() %>
+			<c:if test="${ fn:trim(updateVO.paymentOption) == 1 }">
+				현금구매
+			</c:if>
+			<c:if test="${ fn:trim(updateVO.paymentOption) == 2 }">
+				신용구매
+			</c:if>
 		</td>
 	</tr>
 	<tr>
@@ -80,7 +88,7 @@ Purchase vo = (Purchase)request.getAttribute("updateVO");
 	<tr>
 		<td width="104" class="ct_write">구매자이름</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%= vo.getBuyer().getUserName() %></td>
+		<td class="ct_write01">${ updateVO.receiverName }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -88,7 +96,7 @@ Purchase vo = (Purchase)request.getAttribute("updateVO");
 	<tr>
 		<td width="104" class="ct_write">구매자연락처</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%= vo.getBuyer().getPhone() %></td>
+		<td class="ct_write01">${ updateVO.receiverPhone }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -96,7 +104,7 @@ Purchase vo = (Purchase)request.getAttribute("updateVO");
 	<tr>
 		<td width="104" class="ct_write">구매자주소</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%= vo.getDivyAddr() %></td>
+		<td class="ct_write01">${ updateVO.divyAddr }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -104,7 +112,7 @@ Purchase vo = (Purchase)request.getAttribute("updateVO");
 	<tr>
 		<td width="104" class="ct_write">구매요청사항</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%=vo.getDivyRequest() %></td>
+		<td class="ct_write01">${ updateVO.divyRequest }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -112,7 +120,7 @@ Purchase vo = (Purchase)request.getAttribute("updateVO");
 	<tr>
 		<td width="104" class="ct_write">배송희망일</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%=vo.getDivyDate() %></td>
+		<td class="ct_write01">${ updateVO.divyDate }</td>
 	</tr>
 
 	<tr>
@@ -122,7 +130,7 @@ Purchase vo = (Purchase)request.getAttribute("updateVO");
 	<tr>
 		<td width="104" class="ct_write">주문일</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%=vo.getOrderDate() %></td>
+		<td class="ct_write01">${ updateVO.orderDate }</td>
 	</tr>
 
 	<tr>
@@ -141,7 +149,7 @@ Purchase vo = (Purchase)request.getAttribute("updateVO");
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
-						<a href="/updatePurchaseView.do?tranNo=10032">수정</a>
+						<a href="/updatePurchaseView.do?tranNo=${ updateVO.tranNo }">수정</a>
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
